@@ -1,6 +1,7 @@
 import React from "react";
-import { render, waitForElementToBeRemoved } from "@testing-library/react";
+import { render, getByTestId, fireEvent } from "@testing-library/react";
 import ContactForm from "./ContactForm";
+import { onSubmit } from './ContactForm'
 
 test("renders App without crashing", () => {
     render(<ContactForm />);
@@ -27,4 +28,18 @@ test ("Last Name input exists", () => {
     const { getByPlaceholderText } = render(<ContactForm/>);
     const lastNameInput = getByPlaceholderText('luo');
     expect(lastNameInput.placeholder).toBe(lastNamePlaceHolder);
+})
+
+ test('check if there is a button input', () => {
+    const { container } = render(<ContactForm/>);
+    const submitButton = container.querySelector('[type="submit"]')
+    const submit = 'submit'
+    // console.log(submitButton)
+    expect(submitButton.type).toBe(submit)
+ })
+
+ test('Submit button sends to submit', () => {
+    const { getByTestId }= render(<ContactForm/>);
+    const formSubmit = getByTestId("Form Element")
+    fireEvent.click(formSubmit)
 })

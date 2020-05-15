@@ -3,18 +3,20 @@ import { useForm } from "react-hook-form";
 
 const ContactForm = () => {
   const [data, setData] = useState();
-  const { register, errors, handleSubmit, /*reset*/ } = useForm({
+  const { register, errors, handleSubmit, reset} = useForm({
     mode: "onBlur"
   });
+  
   const onSubmit = data => {
     setData(data);
+    reset();
   };
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form data-testid="Form Element" onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label data-testid ="Name Label" htmlFor="firstName">First Name*</label>
+          <label data-testid="Name Label" htmlFor="firstName">First Name*</label>
           <input
             data-testid ="Name Input"
             name="firstName"
